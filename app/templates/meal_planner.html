@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Weekly Meal Planner</h2>
+<form method="POST">
+  <table>
+    {% for day in days %}
+    <tr>
+      <td>{{ day }}</td>
+      <td>
+        <select name="{{ day }}">
+          <option value="None">Select recipe</option>
+          {% for recipe in recipes %}
+            <option value="{{ recipe.id }}" {% if plans.get(day) == recipe.id %}selected{% endif %}>{{ recipe.name }}</option>
+          {% endfor %}
+        </select>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  <br>
+  <input type="submit" value="Save the plan">
+</form>
+{% endblock %}

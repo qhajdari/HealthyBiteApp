@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HealthyBite</title>
+</head>
+<body>
+  <h1>HealthyBite</h1>
+  <nav>
+    <a href="{{ url_for('index') }}">List of Recipes</a> |
+    <a href="{{ url_for('add_recipe') }}">Add Recipe</a> |
+    <a href="{{ url_for('meal_planner') }}">Weekly Meal Plan</a> |
+    <a href="{{ url_for('shopping_list') }}">Shopping List</a>
+  </nav>
+  <hr>
+  {% block content %}{% endblock %}
+</body>
+</html>
