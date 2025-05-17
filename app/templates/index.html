@@ -1,12 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>List of Recipes</h2>
-  <ul>
-    {% for recipe in recipes %}
-      <li><strong>{{ recipe.name }}</strong> - {{ recipe.category }} - {{ recipe.prep_time }} min</li>
-    {% else %}
-      <li>There's no registered recipe.</li>
-    {% endfor %}
-  </ul>
+  <h2 class="text-center mb-4 text-success">List of Recipes</h2>
+
+  {% if recipes %}
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+      {% for recipe in recipes %}
+      <div class="col">
+        <div class="card h-100 border-success">
+          <div class="card-body">
+            <h5 class="card-title text-success">{{ recipe.name }}</h5>
+            <p class="card-text"><strong>Category:</strong> {{ recipe.category or 'No Category' }}</p>
+            <p class="card-text"><strong>Ingredients:</strong><br> {{ recipe.ingredients }}</p>
+            <p class="card-text"><strong>Guidelines:</strong><br> {{ recipe.instructions }}</p>
+          </div>
+          <div class="card-footer bg-light d-flex justify-content-between align-items-center">
+            <small class="text-muted">Prep Time: {{ recipe.prep_time }} min</small>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-warning text-center" role="alert">
+      There's no recipes registered yet.
+    </div>
+  {% endif %}
 {% endblock %}
