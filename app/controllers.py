@@ -1,12 +1,16 @@
 from flask import render_template, request, redirect, url_for
 from app import app, db
-from app.models import Recipe, MealPlan
+from app.models import MealPlan
+from app.services.concrete_recipe_service import RecipeService
 
-DAYS_OF_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thirsday', 'Friday', 'Saturday', 'Sunday']
+# Create an instance of the RecipeService
+recipe_service = RecipeService()
+
+DAYS_OF_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
 @app.route('/')
 def index():
-    recipes = Recipe.query.all()
+    recipes = recipe_service.get_all_recipes()
     return render_template('index.html', recipes=recipes)
 
 @app.route('/add', methods=['GET', 'POST'])
@@ -18,21 +22,13 @@ def add_recipe():
         instructions = request.form['instructions']
         prep_time = int(request.form['prep_time'])
 
-        recipe = Recipe(
-            name=name,
-            category=category,
-            ingredients=ingredients,
-            instructions=instructions,
-            prep_time=prep_time
-        )
-        db.session.add(recipe)
-        db.session.commit()
+        recipe_service.add_recipe(name, category, ingredients, instructions, prep_time)
         return redirect(url_for('index'))
     return render_template('add_recipe.html')
 
 @app.route('/meal_planner', methods=['GET', 'POST'])
 def meal_planner():
-    recipes = Recipe.query.all()
+    recipes = recipe_service.get_all_recipes()
     if request.method == 'POST':
         MealPlan.query.delete()
         db.session.commit()
