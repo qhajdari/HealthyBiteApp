@@ -1,3 +1,5 @@
+from app.strategies.export_strategy import ExportStrategy
+
 class RecipeExporter:
     def __init__(self, strategy: ExportStrategy):
         self.strategy = strategy

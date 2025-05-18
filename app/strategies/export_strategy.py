@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from app.models import Recipe
+from app.models.recipe_models import Recipe
 
 class ExportStrategy(ABC):
     @abstractmethod

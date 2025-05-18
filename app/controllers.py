@@ -1,10 +1,10 @@
 from flask import render_template, request, redirect, url_for
 from app import app, db
-from app.models import MealPlan
+from app.models.recipe_models import MealPlan
 from app.services.concrete_recipe_service import RecipeService
 from app.services.exceptions import InvalidRecipeException
 from app.services.logger_service import LoggerService
-from app.services.recipe_service import recipe_service
+#from app.services.recipe_service import recipe_service
 from app.strategies.export_as_text import ExportAsText
 from app.strategies.export_as_json import ExportAsJSON
 from app.strategies.export_strategy import ExportStrategy
