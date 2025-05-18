@@ -22,3 +22,4 @@ class RecipeCategory(Enum):
     KETO = "Keto"
     SNACK = 'Snack'
     DESSERT = 'Dessert'
+    

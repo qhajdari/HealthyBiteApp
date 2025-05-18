@@ -3,6 +3,12 @@ from app import app, db
 from app.models import MealPlan
 from app.services.concrete_recipe_service import RecipeService
 from app.services.exceptions import InvalidRecipeException
+from app.services.logger_service import LoggerService
+from app.services.recipe_service import recipe_service
+from app.strategies.export_as_text import ExportAsText
+from app.strategies.export_as_json import ExportAsJSON
+from app.strategies.export_strategy import ExportStrategy
+from app.strategies.recipe_exporter import RecipeExporter
 
 # Create an instance of the RecipeService
 recipe_service = RecipeService()
@@ -30,7 +36,7 @@ def add_recipe():
                 raise InvalidRecipeException("All fields are required.")
             prep_time = int(prep_time_input)
 
-            # Thirrja e shërbimit që mund të ngrejë përjashtim
+            # 
             recipe_service.add_recipe(name, category, ingredients, instructions, prep_time)
             return redirect(url_for('index'))
 
@@ -64,3 +70,21 @@ def shopping_list():
         ingredients.extend([i.strip() for i in ingr_list])
     unique_ingredients = sorted(set(ingredients))
     return render_template('shopping_list.html', ingredients=unique_ingredients)
+
+logger = LoggerService()
+logger.log("This recipe is added successfully.")
+
+# Patterni 
+@app.route("/export/<int:recipe_id>/<format>")
+def export_recipe(recipe_id, format):
+    recipe = recipe_service.get_recipe_by_id(recipe_id)
+
+    if format == "text":
+        exporter = RecipeExporter(ExportAsText())
+    elif format == "json":
+        exporter = RecipeExporter(ExportAsJSON())
+    else:
+        return "Invalid format", 400
+
+    output = exporter.export(recipe)
+    return f"<pre>{output}</pre>"

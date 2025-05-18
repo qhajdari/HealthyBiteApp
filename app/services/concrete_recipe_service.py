@@ -3,6 +3,8 @@ from app.models import Recipe
 from app.services.abstract_recipe_service import AbstractRecipeService
 from app.services.exceptions import InvalidRecipeException
 from app.models import RecipeCategory
+from app.services.recipe_factory import RecipeFactory
+
 
 
 class RecipeService(AbstractRecipeService):
@@ -10,13 +12,14 @@ class RecipeService(AbstractRecipeService):
         if category not in RecipeCategory.__members__:
             raise InvalidRecipeException("Category is not valid.")
 
-        new_recipe = Recipe(
+        new_recipe = RecipeFactory.create_recipe(
             name=name,
-            category=category,
+            category=RecipeCategory[category].value,
             ingredients=ingredients,
             instructions=instructions,
             prep_time=prep_time
         )
+
         db.session.add(new_recipe)
         db.session.commit()
         return new_recipe
