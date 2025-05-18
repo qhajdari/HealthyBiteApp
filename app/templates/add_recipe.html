@@ -3,7 +3,16 @@
 {% block content %}
   <h2 class="text-center mb-4 text-success">Add new recipe</h2>
 
-  <form method="POST" class="needs-validation" novalidate>
+  <div class="p-4 bg-white shadow rounded">
+    {% if error %}
+    <div class="alert alert-danger d-flex align-items-center gap-2" role="alert">
+      <i class="bi bi-exclamation-triangle-fill"></i>
+      {{ error }}
+    </div>
+    {% endif %}
+  
+    <form method="POST" class="needs-validation" novalidate>
+    
     <div class="mb-3">
       <label for="name" class="form-label">Name of recipe</label>
       <input type="text" class="form-control" id="name" name="name" required>
@@ -12,7 +21,15 @@
 
     <div class="mb-3">
       <label for="category" class="form-label">Category</label>
-      <input type="text" class="form-control" id="category" name="category">
+      <select class="form-select" id="category" name="category">
+        <option value="">-- Select Category --</option>
+        <option value="VEGAN">Vegan</option>
+        <option value="VEGETARIAN">Vegetarian</option>
+        <option value="LOW_CARB">Low Carb</option>
+        <option value="KETO">Keto</option>
+        <option value="SNACK">Snack</option>
+        <option value="DESERT">Dessert</option>    
+      </select>
     </div>
 
     <div class="mb-3">

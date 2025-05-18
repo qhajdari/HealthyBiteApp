@@ -1,4 +1,5 @@
 from app import db
+from enum import Enum
 
 class Recipe(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -13,3 +14,11 @@ class MealPlan(db.Model):
     day = db.Column(db.String(10), nullable=False)
     recipe_id = db.Column(db.Integer, db.ForeignKey('recipe.id'), nullable=False)
     recipe = db.relationship('Recipe')
+
+class RecipeCategory(Enum):
+    VEGAN = "Vegan"
+    VEGETARIAN = "Vegetarian"
+    LOW_CARB = "Low Carb"
+    KETO = "Keto"
+    SNACK = 'Snack'
+    DESSERT = 'Dessert'

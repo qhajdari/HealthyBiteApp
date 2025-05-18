@@ -2,6 +2,7 @@ from flask import render_template, request, redirect, url_for
 from app import app, db
 from app.models import MealPlan
 from app.services.concrete_recipe_service import RecipeService
+from app.services.exceptions import InvalidRecipeException
 
 # Create an instance of the RecipeService
 recipe_service = RecipeService()
@@ -15,16 +16,28 @@ def index():
 
 @app.route('/add', methods=['GET', 'POST'])
 def add_recipe():
+    error = None
     if request.method == 'POST':
-        name = request.form['name']
-        category = request.form['category']
-        ingredients = request.form['ingredients']
-        instructions = request.form['instructions']
-        prep_time = int(request.form['prep_time'])
+        try:
+            name = request.form['name']
+            category = request.form['category']
+            ingredients = request.form['ingredients']
+            instructions = request.form['instructions']
+            prep_time_input = request.form['prep_time']
 
-        recipe_service.add_recipe(name, category, ingredients, instructions, prep_time)
-        return redirect(url_for('index'))
-    return render_template('add_recipe.html')
+            # Convert prep_time to an integer
+            if not name or not category or not ingredients or not instructions or not prep_time_input:
+                raise InvalidRecipeException("All fields are required.")
+            prep_time = int(prep_time_input)
+
+            # Thirrja e shërbimit që mund të ngrejë përjashtim
+            recipe_service.add_recipe(name, category, ingredients, instructions, prep_time)
+            return redirect(url_for('index'))
+
+        except (ValueError, InvalidRecipeException) as e:
+            error = str(e)
+
+    return render_template('add_recipe.html', error=error)
 
 @app.route('/meal_planner', methods=['GET', 'POST'])
 def meal_planner():
