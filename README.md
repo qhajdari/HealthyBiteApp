@@ -67,3 +67,25 @@ HealthyBiteApp/
 ├── instance/
 ├── run.py
 ├── requirements.txt
+```
+---
+
+## 🚀 Installation & Run
+
+✅ Requirements
+- Python 3.10+
+- Flask
+- Flask SQLAlchemy
+
+## 🛠️ Setup Instructions
+
+git clone https://github.com/qhajdari/HealthyBiteApp.git
+cd HealthyBiteApp
+pip install -r requirements.txt
+python run.py
+
+Open your browser at:
+http://127.0.0.1:5000/
+
+## 📄 License
+This project is for academic and educational purposes.
