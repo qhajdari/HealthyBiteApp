@@ -1,4 +1,4 @@
-from app.models import Recipe
+from app.models.recipe_models import Recipe
 from app.services.exceptions import InvalidRecipeException
 
 class RecipeFactory:

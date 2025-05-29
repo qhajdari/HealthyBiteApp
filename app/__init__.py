@@ -1,3 +1,4 @@
+from app.models import recipe_models
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
@@ -7,4 +8,4 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-from app import controllers, models
+from app import controllers

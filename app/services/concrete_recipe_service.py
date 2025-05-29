@@ -1,8 +1,8 @@
 from app import db
-from app.models import Recipe
+from app.models.recipe_models import Recipe
 from app.services.abstract_recipe_service import AbstractRecipeService
 from app.services.exceptions import InvalidRecipeException
-from app.models import RecipeCategory
+from app.models.recipe_models import RecipeCategory
 from app.services.recipe_factory import RecipeFactory
 
 
