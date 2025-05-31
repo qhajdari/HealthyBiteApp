@@ -1,5 +1,6 @@
 # models/user_models.py
 from abc import ABC, abstractmethod
+from app import db
 
 class User(ABC):
     def __init__(self, username):

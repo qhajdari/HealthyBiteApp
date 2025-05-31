@@ -1,5 +1,6 @@
 # models/ingredient_models.py
 from abc import ABC, abstractmethod
+from app import db
 
 class Ingredient(ABC):
     @abstractmethod

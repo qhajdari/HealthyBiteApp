@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="text-center">
+    <h2 class="text-success mb-4">✨ Welcome {{ session['user'] }}</h2>
+    <p class="mb-3">You have full access to all HealthyBite features.</p>
+
+    <div class="d-flex flex-column align-items-center gap-3">
+      <a href="{{ url_for('add_recipe') }}" class="btn btn-outline-success btn-lg w-50">
+        ➕ Add New Recipe
+      </a>
+      <a href="{{ url_for('meal_planner') }}" class="btn btn-outline-success btn-lg w-50">
+        🗓️ Weekly Meal Planner
+      </a>
+      <a href="{{ url_for('shopping_list') }}" class="btn btn-outline-success btn-lg w-50">
+        🛒 Shopping List
+      </a>
+    </div>
+    <div class="d-flex justify-content-center gap-3 mt-4">
+    <a href="{{ url_for('export_recipes', format='text') }}" class="btn btn-outline-success">
+        Export Recipes as Text
+    </a>
+    <a href="{{ url_for('export_recipes', format='json') }}" class="btn btn-outline-success">
+        Export Recipes as JSON
+    </a>
+    </div>
+
+
+  </div>
+</div>
+{% endblock %}

@@ -27,3 +27,17 @@
     </div>
   {% endif %}
 {% endblock %}
+{% if session['role'] == 'Admin' %}
+    <a href="/admin_panel" class="btn btn-danger">Admin Panel</a>
+{% elif session['role'] == 'Premium' %}
+    <p class="text-success">Premium features unlocked!</p>
+{% else %}
+    <p class="text-muted">You are logged in as a regular user.</p>
+{% endif %}
+
+{% if session['role'] == 'Premium' %}
+  <div class="alert alert-info text-center">Premium user: Enjoy full access to advanced features!</div>
+{% elif session['role'] == 'Regular' %}
+  <div class="alert alert-secondary text-center">Regular user: You can add recipes freely.</div>
+{% endif %}
+

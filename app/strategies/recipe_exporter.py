@@ -1,11 +1,11 @@
-from app.strategies.export_strategy import ExportStrategy
-
 class RecipeExporter:
-    def __init__(self, strategy: ExportStrategy):
+    def __init__(self, strategy=None):
         self.strategy = strategy
 
-    def set_strategy(self, strategy: ExportStrategy):
+    def set_strategy(self, strategy):
         self.strategy = strategy
 
-    def export(self, recipe):
-        return self.strategy.export(recipe)
+    def export(self, recipes):
+        if not self.strategy:
+            raise ValueError("Export strategy not set.")
+        return self.strategy.export(recipes)
