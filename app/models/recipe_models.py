@@ -1,5 +1,5 @@
 from enum import Enum
-from app import db  # marrim instancën ekzistuese të inicializuar në __init__.py
+from app import db
 
 class RecipeCategory(Enum):
     VEGAN = "Vegan"

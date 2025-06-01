@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-db = SQLAlchemy()  # ← kjo duhet të jetë e vetmja instancë
+db = SQLAlchemy() 
 
 def create_app():
     app = Flask(__name__)
@@ -11,9 +11,9 @@ def create_app():
     app.secret_key = 'super_secret_123'
 
 
-    db.init_app(app)  # ← ky hap është i domosdoshëm
+    db.init_app(app) # registers the db with the Flask app
 
-    from app import models  # regjistron modelet që përdorin db.Model
+    from app import models  # register models to ensure they are created
     from app.controllers import register_routes
     register_routes(app)
 

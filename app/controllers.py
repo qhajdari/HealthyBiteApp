@@ -12,7 +12,7 @@ from app.strategies.recipe_exporter import RecipeExporter
 recipe_service = RecipeService()
 DAYS_OF_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
-def register_routes(app):  # ⬅️ Tani funksioni merr app si argument
+def register_routes(app):  # this function takes app as an argument
 
     @app.route('/')
     def index():
