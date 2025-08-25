@@ -11,8 +11,9 @@
           <div class="card-body">
             <h5 class="card-title text-success">{{ recipe.name }}</h5>
             <p class="card-text"><strong>Category:</strong> {{ recipe.category or 'No Category' }}</p>
-            <p class="card-text"><strong>Ingredients:</strong><br> {{ recipe.ingredients }}</p>
             <p class="card-text"><strong>Guidelines:</strong><br> {{ recipe.instructions }}</p>
+            <p class="card-text"><strong>Ingredients:</strong><br> {{ recipe.ingredients }}</p>
+            
           </div>
           <div class="card-footer bg-light d-flex justify-content-between align-items-center">
             <small class="text-muted">Prep Time: {{ recipe.prep_time }} min</small>

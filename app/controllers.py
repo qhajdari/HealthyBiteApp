@@ -7,7 +7,6 @@ from app.services.user_service import authenticate
 from functools import wraps
 from app.strategies.export_as_text import ExportAsText
 from app.strategies.export_as_json import ExportAsJSON
-from app.strategies.recipe_exporter import RecipeExporter
 
 recipe_service = RecipeService()
 DAYS_OF_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
@@ -66,23 +65,24 @@ def register_routes(app):  # this function takes app as an argument
     def export_recipes(format):
         recipes = recipe_service.get_all_recipes()
 
-        if format == "text":
-            exporter = RecipeExporter(ExportAsText())
+        if format == "json":
+            exporter = ExportAsJSON()
             content = exporter.export(recipes)
-            response = make_response(content)
-            response.headers["Content-Type"] = "text/plain"
-            response.headers["Content-Disposition"] = "attachment; filename=recipes.txt"
-            return response
+            resp = make_response(content)
+            resp.headers["Content-Type"] = "application/json; charset=utf-8"
+            resp.headers["Content-Disposition"] = 'attachment; filename="recipes.json"'
+            return resp
 
-        elif format == "json":
-            exporter = RecipeExporter(ExportAsJSON())
+        elif format == "text":
+            exporter = ExportAsText()
             content = exporter.export(recipes)
-            response = make_response(content)
-            response.headers["Content-Type"] = "application/json"
-            response.headers["Content-Disposition"] = "attachment; filename=recipes.json"
-            return response
+            resp = make_response(content)
+            resp.headers["Content-Type"] = "text/plain; charset=utf-8"
+            resp.headers["Content-Disposition"] = 'attachment; filename="recipes.txt"'
+            return resp
 
         return "Invalid export format", 400
+
 
     @app.route('/shopping_list')
     @login_required

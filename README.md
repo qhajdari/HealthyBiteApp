@@ -4,48 +4,67 @@
 
 ---
 
-## 👨‍💻 
-
-- **Project Name:** HealthyBite
-- **Member:** Qendresa Hajdari
+## 👨‍💻 Project Info
+- **Project Name:** HealthyBite  
+- **Author:** Qëndresa Hajdari  
 
 ---
 
 ## 🎯 Project Purpose
-
 The goal of HealthyBiteApp is to help individuals maintain a healthy diet through:
 
-- Browsing healthy recipes (categorized by dietary preferences)
-- Planning meals throughout the week
-- Automatically generating shopping lists
-- Exporting recipe information in multiple formats
+- Browsing healthy recipes (categorized by dietary preferences)  
+- Planning meals throughout the week  
+- Automatically generating shopping lists  
+- Exporting recipe information in multiple formats  
 
 ---
 
 ## 💡 Features
-
-- ✅ Add, view, and manage healthy recipes
-- ✅ Assign meals to specific days of the week
-- ✅ Auto-generate shopping list from planned meals
-- ✅ Export recipe data in JSON or text format
-- ✅ Role-based user model (Regular, Premium, Admin)
-- ✅ Elegant user interface built with Bootstrap
-- ✅ Uses SQLite as the database
+- ✅ Add, view, and manage healthy recipes  
+- ✅ Assign meals to specific days of the week  
+- ✅ Auto-generate shopping list from planned meals  
+- ✅ Export recipe data in JSON or text format  
+- ✅ Role-based user model (Regular, Premium, Admin)  
+- ✅ Elegant user interface built with Bootstrap  
+- ✅ Uses SQLite as the database  
 
 ---
 
 ## 🧠 OOP Concepts & Design Patterns
 
 | Concept                     | Implemented With                                    |
-|----------------------------|-----------------------------------------------------|
-| **Abstraction / Interface**| `AbstractRecipeService`, `ExportStrategy`, `User`   |
-| **Inheritance (3 levels)** | `User → RegularUser → PremiumUser`                  |
-| **Polymorphism**           | `get_role()` and `export()` methods                |
-| **Exception Handling**     | `InvalidRecipeException`                            |
-| **Enum**                   | `RecipeCategory`                                    |
-| **Design Patterns**        | Factory, Singleton, Strategy                        |
-| **Architecture**           | MVC (Model–View–Controller)                         |
+|------------------------------|-----------------------------------------------------|
+| **Abstraction / Interface** | `AbstractRecipeService`, `ExportStrategy`, `User`, `Ingredient`, `RecipeExporter(ABC)` |
+| **Inheritance (3 levels)**  | `User → RegularUser → PremiumUser`                  |
+| **Polymorphism**            | `get_role()` and `export()` methods                 |
+| **Exception Handling**      | `InvalidRecipeException`                            |
+| **Enum**                    | `RecipeCategory`                                    |
+| **Design Patterns**         | Factory (`RecipeFactory`), Singleton (`LoggerService`), Strategy (`ExportAsJSON`, `ExportAsText`, `CSV/JSONRecipeExporter`) |
+| **Architecture**            | MVC (Model–View–Controller)                         |
 
+---
+
+## 🧪 Tests & Coverage
+All core components of the application are covered with **unit tests**.  
+
+### Coverage Report
+```bash
+coverage run -m unittest discover -s tests -p "test_*.py"
+coverage report -m
+```
+## Test Mapping
+
+| Test File                         | What it Covers                              |
+| --------------------------------- | ------------------------------------------- |
+| `test_recipe_service.py`          | Adding recipes, invalid categories          |
+| `test_recipe_exporter.py`         | CSV and JSON exporters (file-based)         |
+| `test_export_strategies.py`       | Strategy pattern (ExportAsJSON/Text)        |
+| `test_user_service.py`            | Authentication logic, user roles            |
+| `test_logger_singleton.py`        | Singleton behavior of LoggerService         |
+| `test_notification_service.py`    | Email & SMS notifications                   |
+| `test_ingredient_models.py`       | Ingredient subclasses (Vegetable, Fruit, …) |
+| `test_abstract_recipe_service.py` | Abstract service contract                   |
 ---
 
 ## 📁 Project Structure
@@ -56,13 +75,15 @@ HealthyBiteApp/
 │   ├── __init__.py
 │   ├── controllers.py
 │   ├── models/
-│   │   ├── recipe.py, meal_plan.py, user_models.py
+│   │   ├── recipe_models.py, user_models.py, ingredient_models.py
 │   ├── services/
-│   │   ├── recipe_service.py, recipe_factory.py, exceptions.py
+│   │   ├── concrete_recipe_service.py, recipe_factory.py, notification_service.py, ...
 │   ├── strategies/
-│   │   ├── export_strategy.py, export_as_text.py, export_as_json.py
+│   │   ├── export_strategy.py, export_as_text.py, export_as_json.py, recipe_exporter.py
 │   ├── templates/
-│   │   ├── index.html, add_recipe.html, meal_planner.html, ...
+│   │   ├── index.html, add_recipe.html, meal_planner.html, shopping_list.html, ...
+├── tests/
+│   ├── test_recipe_service.py, test_export_strategies.py, ...
 ├── static/
 ├── instance/
 ├── run.py
@@ -82,9 +103,10 @@ HealthyBiteApp/
 git clone https://github.com/qhajdari/HealthyBiteApp.git
 cd HealthyBiteApp
 pip install -r requirements.txt
+python -m flask --app run.py init-db
 python run.py
 
-Open your browser at:
+Open browser at:
 http://127.0.0.1:5000/
 
 ## 📄 License
