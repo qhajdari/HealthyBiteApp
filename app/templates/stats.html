@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2 class="text-success mb-3">Recipe Preparation Time — Stats (threaded)</h2>
+
+  {% if count == 0 %}
+    <div class="alert alert-warning">No recipes found.</div>
+  {% else %}
+    <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between">
+        <span>Total recipes</span><strong>{{ count }}</strong>
+      </li>
+      <li class="list-group-item d-flex justify-content-between">
+        <span>Min prep time (min)</span><strong>{{ stats.min if stats.min is not none else "—" }}</strong>
+      </li>
+      <li class="list-group-item d-flex justify-content-between">
+        <span>Max prep time (min)</span><strong>{{ stats.max if stats.max is not none else "—" }}</strong>
+      </li>
+      <li class="list-group-item d-flex justify-content-between">
+        <span>Average prep time (min)</span>
+        <strong>
+          {% if stats.avg is not none %}{{ "%.2f"|format(stats.avg) }}{% else %}—{% endif %}
+        </strong>
+      </li>
+    </ul>
+  {% endif %}
+{% endblock %}

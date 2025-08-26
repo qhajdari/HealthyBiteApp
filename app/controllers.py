@@ -7,6 +7,9 @@ from app.services.user_service import authenticate
 from functools import wraps
 from app.strategies.export_as_text import ExportAsText
 from app.strategies.export_as_json import ExportAsJSON
+from app.models.recipe_models import Recipe
+from app.services.stats_service import threaded_stats
+
 
 recipe_service = RecipeService()
 DAYS_OF_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
@@ -167,8 +170,16 @@ def register_routes(app):  # this function takes app as an argument
     @role_required("Premium")
     def premium_panel():
         return render_template('premium_panel.html')
+    
 
-
+    @app.route('/stats')
+    @login_required
+    @role_required("Regular", "Premium", "Admin")
+    def stats():
+        # read prep_time from DB
+        times = [r.prep_time for r in Recipe.query.all() if r.prep_time is not None]
+        stats = threaded_stats(times)
+        return render_template('stats.html', count=len(times), stats=stats)
 
 
 
