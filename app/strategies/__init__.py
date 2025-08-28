@@ -1,4 +1,4 @@
-# app/strategies/__init__.py
-from .recipe_exporter import RecipeExporter, CSVRecipeExporter, JSONRecipeExporter
+from .export_as_text import ExportAsText
+from .export_as_json import ExportAsJSON
 
-__all__ = ["RecipeExporter", "CSVRecipeExporter", "JSONRecipeExporter"]
+__all__ = ["ExportAsText", "ExportAsJSON"]

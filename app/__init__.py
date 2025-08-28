@@ -9,7 +9,7 @@ def create_app(config_overrides: dict | None = None):
     app = Flask(__name__, instance_relative_config=True)
     os.makedirs(app.instance_path, exist_ok=True)
 
-    # default DB: instance/healthybite.db (ose çfarë po përdor ti)
+    # default DB: instance/healthybite.db
     db_path = os.path.join(app.instance_path, "healthybite.db")
     db_uri = "sqlite:///" + db_path.replace("\\", "/")
 
@@ -21,19 +21,19 @@ def create_app(config_overrides: dict | None = None):
         TESTING=False,
     )
 
-    # ←← prano overrides nga teste ose run.py
+    # prano overrides nga teste ose run.py
     if config_overrides:
         app.config.update(config_overrides)
 
     # init DB pasi config u vendos
     db.init_app(app)
 
-    # regjistro routes vetëm kur duhet (jo në teste)
+    # register routes
     if app.config.get("REGISTER_ROUTES", True):
         from app.controllers import register_routes
         register_routes(app)
 
-    # (opsionale) context_processor për rolin/menunë
+    # lidhet me UI - context_processor per rol/meny
     @app.context_processor
     def inject_user():
         from flask import session

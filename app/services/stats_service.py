@@ -3,7 +3,6 @@ from statistics import mean
 from typing import Iterable, Dict, Any
 
 def threaded_stats(numbers: Iterable[int]) -> Dict[str, Any]:
-    """Llogarit min/max/avg """
     numbers = [n for n in numbers if isinstance(n, int)]  # filter
     results, lock = {}, threading.Lock()
 

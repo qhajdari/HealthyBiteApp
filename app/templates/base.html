@@ -40,10 +40,10 @@
     <div class="collapse navbar-collapse" id="navMain">
       <ul class="navbar-nav ms-auto align-items-lg-center">
 
-        <!-- gjithmonë e dukshme -->
+        <!-- always visible -->
         <li class="nav-item"><a class="nav-link text-white" href="{{ url_for('index') }}">List of Recipes</a></li>
 
-        <!-- për Regular & Premium -->
+        <!-- for Regular & Premium -->
         {% if is_regular or is_premium %}
           <li class="nav-item"><a class="nav-link text-white" href="{{ url_for('meal_planner') }}">Meal Planner</a></li>
           <li class="nav-item"><a class="nav-link text-white" href="{{ url_for('shopping_list') }}">Shopping List</a></li>
